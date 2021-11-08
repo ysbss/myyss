@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyw.dao.ReturnMapper">
+
+
+    <insert id="addReturn" parameterType="Return">
+        insert into librarysystem.bookreturn(brId, brName, brbName, brPrice, brDate)
+        VALUES (#{brId},#{brName},#{brbName},#{brPrice},#{brDate})
+    </insert>
+
+    <delete id="deleteReturnByIdAndName" parameterType="map">
+        delete from librarysystem.bookreturn where brId=#{brId} and brbName=#{brbName}
+    </delete>
+
+    <update id="updateReturn" parameterType="Return">
+set sql_safe_updates=0;
+        update librarysystem.bookreturn
+        set brId = #{brId},brName= #{brName}, brbName=#{brbName}, brPrice=#{brPrice}, brDate=#{brDate}
+        where brId=#{brId};
+    </update>
+
+    <select id="QuerryAllReturn" resultType="Return">
+        select * from librarysystem.bookreturn
+    </select>
+
+    <select id="QuerryReturnByName" resultType="Return" parameterType="String">
+        select * from librarysystem.bookreturn <where>brName</where> like "%"#{brName}"%";
+    </select>
+
+    <select id="QuerryReturnByIdAndName" resultType="Return" parameterType="map">
+        select * from librarysystem.bookreturn where brId=#{brId} and brbName=#{brbName}
+    </select>
+
+    <select id="QuerryReturnById" parameterType="int" resultType="Return">
+        select * from librarysystem.bookreturn where brId=#{brId}
+    </select>
+</mapper>

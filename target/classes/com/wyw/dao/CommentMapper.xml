@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyw.dao.CommentMapper">
+
+    <insert id="addComment" parameterType="Comment">
+        insert ignore into  librarysystem.comment(cId, cIdentity, cWord, cDate)
+        VALUES (#{cId},#{cIdentity},#{cWord},#{cDate})
+    </insert>
+
+    <delete id="deleteCommentByIdAmdWord" parameterType="map">
+        delete from librarysystem.comment where cId=#{cId} and cWord=#{cWord}
+    </delete>
+
+    <update id="updateComment" parameterType="Comment">
+        update librarysystem.comment
+        set cId = #{cId},cIdentity=#{cIdentity},cWord=#{cWord},cDate=#{cDate}
+        where cId=#{cId};
+    </update>
+
+    <select id="QuerryAllComment" resultType="Comment">
+        select * from librarysystem.comment
+    </select>
+
+    <select id="QuerryCommentById" parameterType="int" resultType="Comment">
+        select * from librarysystem.comment where cId=#{cId}
+    </select>
+
+    <select id="SpecificQuerryCommentByIdAndWord" parameterType="map" resultType="Comment">
+        select *
+        from librarysystem.comment where  cId=#{cId} and cWord=#{cWord};
+    </select>
+</mapper>

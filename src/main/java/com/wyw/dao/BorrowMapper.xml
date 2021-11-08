@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyw.dao.BorrowMapper">
+
+
+    <insert id="addBorrow" parameterType="Borrow">
+        insert ignore into librarysystem.readerborrow(rId, rName, rbId, rbDate, rpDate)
+        VALUES(#{rId},#{rName},#{rbId},#{rbDate},#{rpDate})
+    </insert>
+
+    <select id="QuerryAllBorrow" resultType="Borrow">
+        select * from librarysystem.readerborrow
+    </select>
+
+    <delete id="deleteBorrowByRidAndRbid" parameterType="map">
+        delete from librarysystem.readerborrow where rId=#{rId} and rbId=#{rbId}
+    </delete>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyw.dao.BookMapper">
+<insert id="addBook" parameterType="Book">
+    insert ignore into librarysystem.bookstorage(bId, bName, bIsbn, bAuthor, bPublisher, bDate, bPrice, bNum)
+    values(#{bId},#{bName},#{bIsbn},#{bAuthor},#{bPublisher},#{bDate},#{bPrice},#{bNum})
+</insert>
+
+    <update id="borrowBook" parameterType="int">
+        update librarysystem.bookstorage
+        set bNum = bNum-1
+        where bId=#{bId};
+    </update>
+
+    <update id="backBook" parameterType="int">
+        update librarysystem.bookstorage
+        set bNum =bNum+1
+        where bId=#{bId};
+    </update>
+
+    <update id="updateBook" parameterType="Book">
+        update librarysystem.bookstorage
+        set   bId=#{bId}, bName=#{bName}, bIsbn=#{bIsbn}, bAuthor=#{bAuthor}, bPublisher=#{bPublisher}, bDate=#{bDate}, bPrice=#{bPrice}, bNum=#{bNum}
+        where bId=#{bId};
+
+    </update>
+
+    <select id="queryBook" resultType="Book">
+        select  * from librarysystem.bookstorage
+    </select>
+
+    <select id="queryBookById" resultType="Book" parameterType="int">
+        select * from librarysystem.bookstorage where bId=#{bId}
+    </select>
+
+    <select id="queryBookByName" parameterType="String" resultType="Book">
+        select * from librarysystem.bookstorage  <where>
+        bName </where> like "%"#{bName}"%"
+    </select>
+
+    <delete id="deleteBookById" parameterType="int">
+        delete from  librarysystem.bookstorage where bId=#{bId}
+    </delete>
+
+    <select id="SpecificQuerryBookByName" parameterType="String" resultType="Book">
+        select * from librarysystem.bookstorage where bName=#{bName}
+    </select>
+</mapper>
